@@ -1,0 +1,98 @@
+To immediately throw exception during testing
+
+	Go to Handler.php
+	Add this line to the render() method
+
+		if (app()->environment() === 'testing') throw $exception;
+
+
+To disable Exception Handling in Test
+	For Laravel 5.4
+
+		Uncomment what you did in Handler.php
+
+	Modify TestCase (see TestCase.php for he modifications)
+
+		To disable
+			$this->disableExceptionHandling()
+
+		To enable
+	    	$this->withExceptionHandling()
+
+To install Laravel Debug Bar
+	
+	For Laravel < 5.5
+		composer require barryvdh/laravel-debugbar:~2.4 --dev
+
+	Put this in AppServiceProvider
+		if ($this->app->isLocal()) {
+            $this->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
+
+Creating Validation Rules
+
+	Custom validation rules can be created in the App\Rules.
+
+	Create your validation class there and it should has passes() method with parameter of $attribute and $value.
+
+	To register your custom validation class, you can put it in AppServiceProvider's boot() method using this:
+
+			\Validator::extends('<validation_name_to_be_used>', '<validation_class_path>@<method_to_trigger>');
+
+
+Handling Custom Exceptions
+
+ 	Custom Exceptions can be created in App\Exceptions
+
+ 	Can be catched in the render() method of Handler.php using instanceOf
+
+Form Class
+
+	To control failed authorization method, failedAuthorization() method can be override in your Form class.
+
+For Username completion using @
+
+	Use at.js
+
+		npm install at.js
+
+	Caret.js is also needed by at.js
+
+		npm install jquery.caret
+
+File Storage - Public Access
+
+	To make files in folder "storage" be accessed publicly, run this:
+
+		php artisan storage:link
+
+	In case the symbolic link doesn't work properly, try prepending 'storage/' before the path.
+
+Using Foreign Keys in Database
+	Laravel migrates tables by their timestamps in filename.
+	In case there is an earlier table that has foreign on a later table, it will cause an error.
+	One way to solve it is to alter the timestamp of the earlier table into a later timestamp.
+
+	During testing when SQLite is being used, foreign key is automatically turned off.
+	To turn on:
+		DB::statement('PRAGMA foreign_keys=on');
+	Put that in TestCase class to always enable it during testing.
+
+ZTTP
+
+	ZTTP is a wrapper for Guzzle used to perform AJAX request from server into another server.
+
+	composer require kitetail/zttp
+
+Integrating Vue and Algolia Search
+
+	Follow vue-instantsearch tutorial
+
+Sanitizing User Inputs
+	Install stevebauman/purify
+
+	To sanitize
+		\Purify::clean(<input>);
+
+	To get config file
+		php artisan vendor:publish --provider="Stevebauman\Purify\PurifyServiceProvider"
