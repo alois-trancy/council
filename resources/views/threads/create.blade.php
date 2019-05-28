@@ -24,7 +24,7 @@
                                         value="{{ $channel->id }}"
                                         {{ old('channel_id') == $channel->id ? 'selected' : '' }}
                                         >
-                                        {{ $channel->slug }}
+                                        {{ $channel->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="form-group">
-                           <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+                           <div class="g-recaptcha" data-sitekey="{{ config('council.recaptcha.key') }}"></div>
                         </div>
 
                         <div class="form-group">
