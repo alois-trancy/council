@@ -58,14 +58,14 @@ Vue.config.ignoredElements = ['trix-editor'];
 
 const app = new Vue({
     el: '#app',
-    data: {
-        searchClient: algoliasearch(
-            process.env.MIX_ALGOLIA_APP_ID,
-            process.env.MIX_ALGOLIA_SEARCH
-        ),
-        routing: {
-          router: historyRouter(),
-          stateMapping: simpleMapping(),
-        },
-    },
+    // data: {
+    //     searchClient: algoliasearch(
+    //         process.env.MIX_ALGOLIA_APP_ID,
+    //         process.env.MIX_ALGOLIA_SEARCH
+    //     ),
+    //     routing: {
+    //       router: historyRouter(),
+    //       stateMapping: simpleMapping(),
+    //     },
+    // },
 });

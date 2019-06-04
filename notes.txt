@@ -96,3 +96,8 @@ Sanitizing User Inputs
 
 	To get config file
 		php artisan vendor:publish --provider="Stevebauman\Purify\PurifyServiceProvider"
+
+Adding License
+
+	LICENSE.md
+		Choose a license from choosealicense.com

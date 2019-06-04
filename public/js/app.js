@@ -7546,7 +7546,7 @@ function load() {
 
   // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
   if (!r && typeof process !== 'undefined' && 'env' in process) {
-    r = Object({"MIX_ALGOLIA_APP_ID":"YY5VX4Q34L","MIX_ALGOLIA_SEARCH":"de0def95bc903cc6b4e3ab32ae21e866","NODE_ENV":"development"}).DEBUG;
+    r = Object({"MIX_ALGOLIA_APP_ID":"","MIX_ALGOLIA_SEARCH":"","NODE_ENV":"development"}).DEBUG;
   }
 
   return r;
@@ -39689,14 +39689,17 @@ Vue.component('wysiwyg', __webpack_require__(624));
 Vue.config.ignoredElements = ['trix-editor'];
 
 var app = new Vue({
-  el: '#app',
-  data: {
-    searchClient: __WEBPACK_IMPORTED_MODULE_1_algoliasearch_lite___default()("YY5VX4Q34L", "de0def95bc903cc6b4e3ab32ae21e866"),
-    routing: {
-      router: Object(__WEBPACK_IMPORTED_MODULE_2_instantsearch_js_es_lib_routers__["a" /* history */])(),
-      stateMapping: Object(__WEBPACK_IMPORTED_MODULE_3_instantsearch_js_es_lib_stateMappings__["a" /* simple */])()
-    }
-  }
+  el: '#app'
+  // data: {
+  //     searchClient: algoliasearch(
+  //         process.env.MIX_ALGOLIA_APP_ID,
+  //         process.env.MIX_ALGOLIA_SEARCH
+  //     ),
+  //     routing: {
+  //       router: historyRouter(),
+  //       stateMapping: simpleMapping(),
+  //     },
+  // },
 });
 
 /***/ }),
@@ -89249,7 +89252,7 @@ var store = __webpack_require__(568);
 // proxies limit)
 var MAX_API_KEY_LENGTH = 500;
 var RESET_APP_DATA_TIMER =
-  Object({"MIX_ALGOLIA_APP_ID":"YY5VX4Q34L","MIX_ALGOLIA_SEARCH":"de0def95bc903cc6b4e3ab32ae21e866","NODE_ENV":"development"}).RESET_APP_DATA_TIMER && parseInt(Object({"MIX_ALGOLIA_APP_ID":"YY5VX4Q34L","MIX_ALGOLIA_SEARCH":"de0def95bc903cc6b4e3ab32ae21e866","NODE_ENV":"development"}).RESET_APP_DATA_TIMER, 10) ||
+  Object({"MIX_ALGOLIA_APP_ID":"","MIX_ALGOLIA_SEARCH":"","NODE_ENV":"development"}).RESET_APP_DATA_TIMER && parseInt(Object({"MIX_ALGOLIA_APP_ID":"","MIX_ALGOLIA_SEARCH":"","NODE_ENV":"development"}).RESET_APP_DATA_TIMER, 10) ||
   60 * 2 * 1000; // after 2 minutes reset to first host
 
 /*
@@ -93080,7 +93083,7 @@ module.exports = '3.33.0';
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__history__ = __webpack_require__(179);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__history__["a"]; });
+/* unused harmony reexport history */
 
 
 /***/ }),
@@ -93089,7 +93092,7 @@ module.exports = '3.33.0';
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__simple__ = __webpack_require__(178);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__simple__["a"]; });
+/* unused harmony reexport simple */
 
 
 /***/ }),
@@ -97017,6 +97020,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -97041,6 +97047,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return this.authorize(function (user) {
 				return user.id === _this.user.id;
 			});
+		},
+		reputation: function reputation() {
+			return this.user.reputation + 'XP';
 		}
 	},
 
@@ -97174,7 +97183,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", { domProps: { textContent: _vm._s(_vm.user.name) } }),
+    _c("h1", [
+      _vm._v("\n\t\t" + _vm._s(_vm.user.name) + "\n\t\t"),
+      _c("small", { domProps: { textContent: _vm._s(_vm.reputation) } })
+    ]),
     _vm._v(" "),
     _vm.canUpdate
       ? _c(

@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<h1 v-text="user.name"></h1>
+		<h1>
+			{{user.name}}
+			<small v-text="reputation"></small>
+		</h1>
 		<form v-if="canUpdate" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 				<image-upload name="avatar" class="mr-1" @loaded='onLoad'></image-upload>
@@ -32,6 +35,10 @@
 		computed: {
 			canUpdate() {
 				return this.authorize(user => user.id === this.user.id);
+			},
+
+			reputation() {
+				return this.user.reputation + 'XP';
 			},
 		},
 
