@@ -62,6 +62,7 @@ class InstallCommandTest extends TestCase
     {
         $this->partialMock(['ask', 'secret'], function ($mock) {
             $mock->shouldReceive('ask')->with('Database name')->andReturn('mydatabase');
+            $mock->shouldReceive('ask')->with('Database port', 3306)->andReturn(3306);
             $mock->shouldReceive('ask')->with('Database user')->andReturn('johndoe');
             $mock->shouldReceive('secret')->with('Database password ("null" for no password)')->andReturn('password');
         });
