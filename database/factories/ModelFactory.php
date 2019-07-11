@@ -35,7 +35,7 @@ $factory->define(App\Thread::class, function (Faker\Generator $faker) {
 
     return [
             'user_id' => function () {
-            	return factory(App\User::class)->create()->id;
+                return factory(App\User::class)->create()->id;
             },
             'channel_id' => function () {
                 return factory(App\Channel::class)->create()->id;
@@ -49,20 +49,18 @@ $factory->define(App\Thread::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Reply::class, function (Faker\Generator $faker) {
-
     return [
             'thread_id' => function () {
-            	return factory(App\Thread::class)->create()->id;
+                return factory(App\Thread::class)->create()->id;
             },
             'user_id' => function () {
-            	return factory(App\User::class)->create()->id;
+                return factory(App\User::class)->create()->id;
             },
             'body' => $faker->paragraph,
     ];
 });
 
 $factory->define(App\Channel::class, function (Faker\Generator $faker) {
-    
     do {
         $name = $faker->word;
     } while (\App\Channel::where('slug', $name)->exists());
@@ -74,7 +72,6 @@ $factory->define(App\Channel::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Illuminate\Notifications\DatabaseNotification::class, function (Faker\Generator $faker) {
-    
     return [
         'id' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
         'type' => 'App\Notifications\ThreadWasUpdated',

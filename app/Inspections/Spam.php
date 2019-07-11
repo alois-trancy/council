@@ -4,19 +4,17 @@ namespace App\Inspections;
 
 class Spam
 {
+    protected $inspections = [
+        InvalidKeywords::class,
+        KeyHeldDown::class,
+    ];
 
-	protected $inspections = [
-		InvalidKeywords::class,
-		KeyHeldDown::class,
-	];
+    public function detect($body)
+    {
+        foreach ($this->inspections as $inspection) {
+            app($inspection)->detect($body);
+        }
 
-	public function detect($body)
-	{
-		foreach ($this->inspections as $inspection) {
-			app($inspection)->detect($body);
-		}
-
-		return false;
-	}
-
+        return false;
+    }
 }

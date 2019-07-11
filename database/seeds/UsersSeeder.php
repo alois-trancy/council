@@ -15,11 +15,11 @@ class UsersSeeder extends Seeder
         User::truncate();
 
         factory(User::class)
-    		->create([
-    			'name' => 'JohnDoe',
-    			'email' => 'johndoe@example.com',
+            ->create([
+                'name' => 'JohnDoe',
+                'email' => 'johndoe@example.com',
                 'password' => bcrypt('password'),
-    			'confirmed' => true
-    		]);
+                'confirmed' => true
+            ]);
     }
 }
