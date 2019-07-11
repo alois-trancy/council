@@ -7,17 +7,18 @@ use Illuminate\Foundation\Events\Dispatchable;
 
 class ThreadReceivedNewReply
 {
-    use Dispatchable, SerializesModels;
-
     public $reply;
+
+    use Dispatchable, SerializesModels;
 
     /**
      * Create a new event instance.
      *
-     * @param $reply
+     * @return void
      */
     public function __construct($reply)
     {
         $this->reply = $reply;
     }
+
 }

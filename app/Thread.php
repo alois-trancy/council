@@ -39,13 +39,13 @@ class Thread extends Model
             // $thread->replies()->delete();
             $thread->replies->each->delete();
 
-            Reputation::reduce($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
+            Reputation::lose($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
 
         static::created(function ($thread) {
             $thread->update(['slug' => $thread->title]);
 
-            Reputation::award($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
+            Reputation::gain($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
         
     }    
@@ -58,6 +58,11 @@ class Thread extends Model
     public function replies()
     {
     	return $this->hasMany(Reply::class);
+    }
+
+    public function bestReply()
+    {
+        return $this->hasOne(Reply::class, 'id', 'best_reply_id');
     }
 
     public function creator()
@@ -210,9 +215,18 @@ class Thread extends Model
 
     public function markBestReply(Reply $reply)
     {
+        if ($this->hasBestReply()) {
+            Reputation::lose($this->bestReply->owner, Reputation::BEST_REPLY_AWARDED);
+        }
+
         $reply->thread->update(['best_reply_id' => $reply->id]);
 
-        Reputation::award($reply->owner, Reputation::BEST_REPLY_AWARDED);
+        Reputation::gain($reply->owner, Reputation::BEST_REPLY_AWARDED);
+    }
+
+    public function hasBestReply()
+    {
+        return ! is_null($this->best_reply_id);
     }
 
     public function toSearchableArray()

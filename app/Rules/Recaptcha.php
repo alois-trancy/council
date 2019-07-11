@@ -7,6 +7,8 @@ use Zttp\Zttp;
 
 class Recaptcha implements Rule
 {
+    const URL = 'https://www.google.com/recaptcha/api/siteverify';
+
     /**
      * Create a new rule instance.
      *
@@ -26,13 +28,11 @@ class Recaptcha implements Rule
      */
     public function passes($attribute, $value)
     {
-        $response = Zttp::asFormParams()->post('https://www.google.com/recaptcha/api/siteverify', [
+        return Zttp::asFormParams()->post(static::URL, [
             'secret' => config('council.recaptcha.secret'),
             'response' => $value,
             'remoteip' => request()->ip()
-        ]);
-
-        return $response->json()['success'];
+        ])->json()['success'];
     }
 
     /**
@@ -43,5 +43,19 @@ class Recaptcha implements Rule
     public function message()
     {
         return 'The recaptcha verification failed. Please try again!';
+    }
+
+    /**
+     * Determine if Recaptcha's keys are set to test mode.
+     *
+     * @return bool
+     */
+    public static function isInTestMode()
+    {
+        return Zttp::asFormParams()->post(static::URL, [
+            'secret' => config('council.recaptcha.secret'),
+            'response' => 'test',
+            'remoteip' => request()->ip()
+        ])->json()['success'];
     }
 }
