@@ -22,5 +22,4 @@ class ThreadHasNewReply
         $this->thread = $thread;
         $this->reply = $reply;
     }
-
 }

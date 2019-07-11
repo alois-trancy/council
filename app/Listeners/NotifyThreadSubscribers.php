@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ThreadHasNewReply;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifyThreadSubscribers
 {

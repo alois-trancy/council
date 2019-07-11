@@ -2,13 +2,11 @@
 
 namespace App;
 
-use App\Reputation;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-	
     use Favoritable, RecordsActivity;
 
     protected $guarded = [];
@@ -20,7 +18,7 @@ class Reply extends Model
         'isFavorited',
         'isBest',
     ];
-    
+
     public static function boot()
     {
         parent::boot();
@@ -43,12 +41,12 @@ class Reply extends Model
 
     public function owner()
     {
-    	return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function thread()
     {
-    	return $this->belongsTo(Thread::class);
+        return $this->belongsTo(Thread::class);
     }
 
     public function wasJustPublished()
@@ -58,7 +56,7 @@ class Reply extends Model
 
     public function path()
     {
-        return $this->thread->path() . "#reply-{$this->id}";
+        return $this->thread->path()."#reply-{$this->id}";
     }
 
     public function mentionedUsers()

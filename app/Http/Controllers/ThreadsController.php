@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
-use App\Filters\ThreadFilters;
-use App\Inspections\Spam;
-use App\Rules\Recaptcha;
 use App\Thread;
+use App\Channel;
 use App\Trending;
-use Carbon\Carbon;
+use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
+use App\Filters\ThreadFilters;
 
 class ThreadsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
@@ -89,8 +86,8 @@ class ThreadsController extends Controller
     public function show(Channel $channel, Thread $thread, Trending $trending)
     {
         if (auth()->check()) {
-            auth()->user()->read($thread);    
-        }        
+            auth()->user()->read($thread);
+        }
 
         $trending->push($thread);
 
