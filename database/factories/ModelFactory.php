@@ -63,7 +63,9 @@ $factory->define(App\Reply::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Channel::class, function (Faker\Generator $faker) {
     
-    $name = $faker->word;
+    do {
+        $name = $faker->word;
+    } while (\App\Channel::where('slug', $name)->exists());
 
     return [
         'name' => $name,
