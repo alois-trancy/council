@@ -77,7 +77,7 @@ class User extends Authenticatable
         // return asset($this->avatar_path ?: 'avatars/default.jpg');
 
         if ($avatar) {
-            return asset('storage/' . $avatar);
+            return asset('storage/'.$avatar);
         }
 
         return asset('images/avatars/default.png');
@@ -85,6 +85,6 @@ class User extends Authenticatable
 
     public function visitedThreadCacheKey($thread)
     {
-        return sprintf("users.%s.visits.%s", $this->id, $thread->id);
+        return sprintf('users.%s.visits.%s', $this->id, $thread->id);
     }
 }

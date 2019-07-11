@@ -3,10 +3,8 @@
 namespace App\Listeners;
 
 use App\User;
-use App\Notifications\YouWereMentioned;
 use App\Events\ThreadReceivedNewReply;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\YouWereMentioned;
 
 class NotifyMentionedUsers
 {

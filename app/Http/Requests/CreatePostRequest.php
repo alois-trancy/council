@@ -34,7 +34,7 @@ class CreatePostRequest extends FormRequest
         return [
             'body' => 'required|spamfree'
         ];
-    }    
+    }
 
     // public function persists($thread)
     // {

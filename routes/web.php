@@ -19,7 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::resource('threads', 'ThreadsController');
 Route::get('/threads', 'ThreadsController@index')->name('threads');
-Route::get('/threads/create', 'ThreadsController@create')->middleware('must-be-confirmed');;
+Route::get('/threads/create', 'ThreadsController@create')->middleware('must-be-confirmed');
 Route::get('/threads/search', 'SearchController@show');
 Route::post('/threads', 'ThreadsController@store')->middleware('must-be-confirmed');
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
@@ -58,7 +58,7 @@ Route::group([
     'prefix' => 'admin',
     'middleware' => 'admin',
     'namespace' => 'Admin'
-], function() {
+], function () {
     Route::get('/', 'DashboardController@index')->name('admin.dashboard.index');
     Route::post('/channels', 'ChannelsController@store')->name('admin.channels.store');
     Route::get('/channels', 'ChannelsController@index')->name('admin.channels.index');

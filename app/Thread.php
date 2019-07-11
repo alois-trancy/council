@@ -2,10 +2,9 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use App\Events\ThreadReceivedNewReply;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
-use App\Reputation;
 
 class Thread extends Model
 {
@@ -25,7 +24,7 @@ class Thread extends Model
     public static function boot()
     {
         parent::boot();
-        
+
         // static::addGlobalScope('replyCount', function($builder) {
         //     $builder->withCount('replies');
         // });
@@ -47,17 +46,16 @@ class Thread extends Model
 
             Reputation::gain($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
-        
-    }    
+    }
 
     public function path()
     {
-    	return "/threads/{$this->channel->slug}/{$this->slug}";
+        return "/threads/{$this->channel->slug}/{$this->slug}";
     }
 
     public function replies()
     {
-    	return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class);
     }
 
     public function bestReply()
@@ -67,7 +65,7 @@ class Thread extends Model
 
     public function creator()
     {
-    	return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function channel()
@@ -129,7 +127,7 @@ class Thread extends Model
     {
         $this->subscriptions()
              ->where('user_id', $userId ?: auth()->id())
-             ->delete(); 
+             ->delete();
     }
 
     public function subscriptions()
@@ -186,7 +184,7 @@ class Thread extends Model
 
         $slug = str_slug($value);
         if (static::whereSlug($slug)->exists()) {
-            $slug = $slug . '-' . $this->id;
+            $slug = $slug.'-'.$this->id;
         }
         $this->attributes['slug'] = $slug;
     }
@@ -202,7 +200,7 @@ class Thread extends Model
         //     }, $max);
         // }
 
-        // return "{$slug}-2"; 
+        // return "{$slug}-2";
 
         $original = $slug;
         while (static::whereSlug($slug)->exists()) {
