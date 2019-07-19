@@ -175,6 +175,19 @@ class CreateThreadsTest extends TestCase
             ]);
     }
 
+    /** @test */
+    function a_new_thread_cannot_be_created_in_an_archived_channel()
+    {
+        $channel = create('App\Channel', ['archived' => true]);
+        
+        $channel->archive();
+
+        $this->publishThread(['channel_id' => $channel->id])
+            ->assertSessionHasErrors('channel_id');
+
+        $this->assertEquals(0, $channel->threads);
+    }
+
     public function publishThread($overrides = [])
     {
         $this->withExceptionHandling()
@@ -184,7 +197,5 @@ class CreateThreadsTest extends TestCase
 
         return $this->post(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token']);
     }
-
-
 
 }
