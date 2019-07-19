@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Channel;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class ChannelsController extends Controller
 {
@@ -14,7 +15,7 @@ class ChannelsController extends Controller
      */
     public function index()
     {
-        $channels = Channel::with('threads')->get();
+        $channels = Channel::withoutGlobalScopes()->with('threads')->get();
 
         return view('admin.channels.index', compact('channels'));
     }
@@ -26,30 +27,41 @@ class ChannelsController extends Controller
      */
     public function create()
     {
-        return view('admin.channels.create');
+        return view('admin.channels.create', ['channel' => new Channel]);
     }
 
     /**
-     * Store a new channel.
+     * Show the form to edit an existing channel.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function edit(Channel $channel)
     {
-        $channel = Channel::create(
+        return view('admin.channels.edit', compact('channel'));
+    }
+
+    /**
+     * Update an existing channel.
+     *
+     * @return \Illuminate\
+     */
+    public function update(Channel $channel)
+    {
+        $channel->update(
             request()->validate([
-                'name' => 'required|unique:channels',
+                'name' => ['required', Rule::unique('channels')->ignore($channel->id)],
                 'description' => 'required',
+                'archived' => 'required|boolean'
             ])
         );
 
         cache()->forget('channels');
 
         if (request()->wantsJson()) {
-            return response($channel, 201);
+            return response($channel, 200);
         }
 
         return redirect(route('admin.channels.index'))
-            ->with('flash', 'Your channel has been created!');
+            ->with('flash', 'Your channel has been updated!');
     }
 }

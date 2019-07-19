@@ -68,6 +68,8 @@ $factory->define(App\Channel::class, function (Faker\Generator $faker) {
     return [
         'name' => $name,
         'slug' => $name,
+        'description' => $faker->sentence,
+        'archived' => false,
     ];
 });
 

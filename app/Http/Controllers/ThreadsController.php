@@ -44,7 +44,9 @@ class ThreadsController extends Controller
      */
     public function create()
     {
-        return view('threads.create');
+        return view('threads.create', [
+            'channels' => Channel::all()
+        ]);
     }
 
     /**
@@ -157,7 +159,11 @@ class ThreadsController extends Controller
 
     protected function getThreads(Channel $channel, $filters)
     {
-        $threads = Thread::latest()->filter($filters);
+        // $threads = Thread::latest()->filter($filters);
+
+        $threads = Thread::orderBy('pinned', 'DESC')
+            ->latest()
+            ->filter($filters);
 
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);

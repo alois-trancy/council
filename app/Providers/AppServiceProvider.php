@@ -23,13 +23,13 @@ class AppServiceProvider extends ServiceProvider
         // This will run before the DatabaseMigrations in PhpUnit
         // \View::share('channels', Channel::all());
 
-        \View::composer('*', function ($view) {
-            $channels = \Cache::rememberForever('channels', function () {
-                return Channel::all();
-            });
+        // \View::composer('*', function ($view) {
+        //     $channels = \Cache::rememberForever('channels', function () {
+        //         return Channel::all();
+        //     });
 
-            $view->with('channels', $channels);
-        });
+        //     $view->with('channels', $channels);
+        // });
 
         \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     }

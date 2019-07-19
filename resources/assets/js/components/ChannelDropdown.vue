@@ -50,13 +50,17 @@
 
 <script>
     export default {
-        props: ['channels'],
 
         data() {
             return {
+                channels: [],
                 toggle: false,
-                filter: ''
+                filter: '',
             }
+        },
+
+        created() {
+            axios.get('/api/channels').then(({ data }) => (this.channels = data));
         },
 
         computed: {

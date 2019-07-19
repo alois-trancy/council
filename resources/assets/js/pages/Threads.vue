@@ -21,6 +21,7 @@
 				title: this.thread.title,
 				body: this.thread.body,
 				locked: this.thread.locked,
+				pinned: this.thread.pinned,
 				editing: false,
 				form: {},
 			};
@@ -40,6 +41,12 @@
 				this.resetForm();
 			},
 
+			togglePin() {
+                let uri = `/pinned-threads/${this.thread.slug}`;
+                axios[this.pinned ? 'delete' : 'post'](uri);
+                this.pinned = ! this.pinned;
+            },
+
 			update() {
 				let uri = `/threads/${this.thread.channel.slug}/${this.thread.slug}`;
 				axios.patch(uri, this.form).then(() => {
@@ -58,6 +65,13 @@
 
 				this.editing = false;
 			},
+
+            classes(target) {
+                return [
+                    'btn',
+                    target ? 'btn-primary' : 'btn-default'
+                ];
+            },
 		}
 		
 	}
