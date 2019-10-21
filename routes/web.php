@@ -33,7 +33,6 @@ Route::delete('/locked-threads/{thread}', 'LockedThreadsController@destroy')->na
 Route::post('pinned-threads/{thread}', 'PinnedThreadsController@store')->name('pinned-threads.store')->middleware('admin');
 Route::delete('pinned-threads/{thread}', 'PinnedThreadsController@destroy')->name('pinned-threads.destroy')->middleware('admin');
 
-
 Route::get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
 Route::patch('/replies/{reply}', 'RepliesController@update');
