@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Thread;
 use App\Channel;
+use App\Thread;
 
 class ThreadSubscriptionsController extends Controller
 {

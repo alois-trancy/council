@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Channel;
+use App\Http\Requests\CreatePostRequest;
 use App\Reply;
 use App\Thread;
-use App\Channel;
+use App\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreatePostRequest;
 
 class RepliesController extends Controller
 {

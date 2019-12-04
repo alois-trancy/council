@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Reply;
 use App\Favorite;
+use App\Reply;
 use App\Reputation;
 
 class FavoritesController extends Controller
